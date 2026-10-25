@@ -3,7 +3,7 @@ import { createServer as createViteServer } from 'vite';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
-import { GoogleGenAI, Type } from '@google/genai';
+import { GoogleGenAI, Type, ThinkingLevel } from '@google/genai';
 
 dotenv.config();
 
@@ -170,7 +170,7 @@ app.get('/api/market', async (req, res) => {
     }
 
     const response = await ai.models.generateContent({
-      model: 'gemini-3.8-flash',
+      model: 'gemini-3.1-flash-lite',
       contents:
         'Return a real-time institutional snapshot of the Nigerian Stock Exchange (NGX ASI) and Global Markets (S&P 500, NASDAQ, FTSE 100), top volume gainers, 3 key market headlines, and 7 sequential numerical trend data points for each index.',
       config: {
@@ -300,7 +300,7 @@ app.get('/api/news', async (req, res) => {
     }
 
     const response = await ai.models.generateContent({
-      model: 'gemini-3.8-flash',
+      model: 'gemini-3.1-flash-lite',
       contents:
         'Generate 7 high-impact live financial news headlines focusing on Nigeria, African markets, commodities (crude oil, gold, gas), FX, central banking, and global institutional investment. Return as structured JSON.',
       config: {
@@ -406,17 +406,20 @@ Communication Guidelines:
       });
     }
 
-    // Call Gemini with a 25s timeout
+    // Call Gemini with thinkingLevel: LOW and 60s timeout for fast, high-quality responses
     const generatePromise = ai.models.generateContent({
       model: selectedModel,
       contents,
       config: {
         systemInstruction,
+        thinkingConfig: {
+          thinkingLevel: ThinkingLevel.LOW,
+        },
       },
     });
 
     const timeoutPromise = new Promise<never>((_, reject) =>
-      setTimeout(() => reject(new Error('Advisory intelligence request timed out after 25s')), 25000)
+      setTimeout(() => reject(new Error('Advisory intelligence request timed out after 60s')), 60000)
     );
 
     const response = await Promise.race([generatePromise, timeoutPromise]);
