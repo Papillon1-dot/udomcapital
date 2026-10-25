@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Cormorant Garamond", serif;
+  --font-mono: "JetBrains Mono", monospace;
+  
+  --color-udom-black: #050505;
+  --color-udom-dark: #0E0E0E;
+  --color-udom-gold: #C5A059;
+  --color-udom-emerald: #10B981;
+  --color-udom-zinc: #71717A;
+
+  --animate-marquee: marquee 40s linear infinite;
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-udom-black text-white font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif font-light tracking-tight;
+  }
+
+  section {
+    @apply border-b border-white/5;
+  }
+}
+
+.market-glass {
+  @apply bg-white/[0.02] backdrop-blur-md border border-white/10;
+}
+
+.gold-border-gradient {
+  border-image: linear-gradient(to right, #C5A059, transparent) 1;
+}

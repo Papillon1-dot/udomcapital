@@ -1,0 +1,8 @@
+{
+  "name": "UdomCapital",
+  "description": "A premier African investment and financial advisory firm headquartered in Nigeria, specializing in investment banking, project finance, and wealth management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
